@@ -18,7 +18,6 @@ class Parser {
             case Tokens.NUMBER: {
                 this.lexer.advance();
                 return parseInt(text);
-                break;
             }
         }
     }
@@ -34,8 +33,10 @@ class Parser {
                     break;
                 case Tokens.DIV:
                     this.lexer.advance();
-                    //add check division to 0
                     let x = this.primary();
+                    if (x === 0) {
+                        throw {message: "Error dividing by zero!"};
+                    }
                     result /= x;
                     break;
                 default:
@@ -69,4 +70,5 @@ class Parser {
     }
 
 }
+
 export default Parser;

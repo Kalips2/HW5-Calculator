@@ -20,25 +20,29 @@ class App extends Component {
     signs = "+-/*";
     addDigitalToString = (number) => {
         this.setState({
-            currentString: this.state.currentString + number,
+            currentString: this.state.currentString + number.toString(),
         })
     }
 
     addSignToString = (sign) => {
-        if (!this.signs.includes(this.state.currentString.at(this.state.currentString.length - 2))) {
-            this.setState({
-                currentString: this.state.currentString + " " + sign + " ",
-            })
-        } else {
-            this.setState({
-                currentString: this.state.currentString.slice(0, this.state.currentString.length - 2) + sign + " ",
-            })
+        //we don't allow set the operator as first character in the currentString
+        if (this.state.currentString.length > 0) {
+            //if
+            if (!this.signs.includes(this.state.currentString.charAt(this.state.currentString.length - 2))) {
+                this.setState({
+                    currentString: this.state.currentString + " " + sign + " ",
+                })
+            } else {
+                this.setState({
+                    currentString: this.state.currentString.slice(0, this.state.currentString.length - 2) + sign + " ",
+                })
+            }
         }
 
     }
 
     deleteLastCharacter = () => {
-        if (this.signs.includes(this.state.currentString.at(this.state.currentString.length - 2))) {
+        if (this.signs.includes(this.state.currentString.charAt(this.state.currentString.length - 2))) {
             this.setState({
                 currentString: this.state.currentString.slice(0, this.state.currentString.length - 3)
             })
@@ -52,15 +56,24 @@ class App extends Component {
 
     evaluateExpression = () => {
         let newExpression = this.state.currentString;
-        let result = this.state.parser.evaluation(newExpression);
-        if (!isNaN(result)) {
-            newExpression += " = " + result;
-            //parser
+        try {
+            let result = this.state.parser.evaluation(newExpression);
+            if (!isNaN(result)) {
+                newExpression += " = " + result;
+                //parser
+                this.setState({
+                    currentString: "" + result < 0 ? "" : result.toString(),
+                    resultsOfCalculation: [...this.state.resultsOfCalculation, newExpression]
+                })
+            }
+        } catch (e) {
+            newExpression += " = " + e.message;
             this.setState({
-                currentString: "" + result,
+                currentString: "",
                 resultsOfCalculation: [...this.state.resultsOfCalculation, newExpression]
             })
         }
+
     }
 
     render() {

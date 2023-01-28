@@ -48,29 +48,30 @@ class Lexer {
 
         this.buffer = this.input.at(this.position);
         switch (this.buffer) {
-            case "+":
+            case "+": {
                 this.position++;
                 return Tokens.PLUS;
-                break;
-            case "-":
+            }
+            case "-": {
                 this.position++;
                 return Tokens.MINUS;
-                break;
-            case "*":
+            }
+            case "*": {
                 this.position++;
                 return Tokens.MUL;
-                break;
-            case "/":
+            }
+            case "/": {
                 this.position++;
                 return Tokens.DIV;
-                break;
-            default:
-                console.log("Не прав вираз!")
+            }
+            default: {
+                throw {message: "Error by incorrect input! "};
+            }
         }
     }
 
     advance() {
-        if(this.currentToken !== Tokens.END_OF) {
+        if (this.currentToken !== Tokens.END_OF) {
             this.currentToken = this.getToken();
             this.currentTokenAsText = this.buffer;
         }
