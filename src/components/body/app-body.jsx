@@ -31,6 +31,7 @@ class Body extends Component {
                     <SignButton sign={"-"} addSignToString={this.props.addSignToString}> </SignButton>
                     <SignButton sign={"/"} addSignToString={this.props.addSignToString}> </SignButton>
                     <SignButton sign={"*"} addSignToString={this.props.addSignToString}> </SignButton>
+                    <DeleteButton deleteCharacter={this.props.deleteCharacter} name="Delete"/>
                     <EqualButton string={"="} evaluateExpression={this.props.evaluateExpression}> </EqualButton>
                 </div>
 

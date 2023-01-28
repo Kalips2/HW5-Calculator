@@ -17,6 +17,7 @@ class App extends Component {
         this.addDigitalToString = this.addDigitalToString.bind(this);
         this.addSignToString = this.addSignToString.bind(this);
         this.evaluateExpression = this.evaluateExpression.bind(this);
+        this.deleteCharacterInExpression = this.deleteCharacterInExpression.bind(this);
     }
 
     signs = "+-/*";
@@ -71,6 +72,22 @@ class App extends Component {
         }
     }
 
+    deleteCharacterInExpression = () => {
+        if (this.state.secondNumber !== "") {
+            this.setState({
+                secondNumber: this.state.secondNumber.slice(0, this.state.secondNumber.length - 1)
+            })
+        } else if (this.state.operator !== "") {
+            this.setState({
+                operator: ""
+            })
+        } else {
+            this.setState({
+                firstNumber: this.state.firstNumber.slice(0, this.state.firstNumber.length - 1)
+            })
+        }
+    }
+
     render() {
         const resultString = this.state.firstNumber + " " + this.state.operator + " " + this.state.secondNumber;
         return (
@@ -79,6 +96,7 @@ class App extends Component {
                         currentString={resultString}></Header>
                 <Body addDigitalToString={this.addDigitalToString}
                       addSignToString={this.addSignToString}
+                      deleteCharacter={this.deleteCharacterInExpression}
                       evaluateExpression={this.evaluateExpression}/>
             </div>
 

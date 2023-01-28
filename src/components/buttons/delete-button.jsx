@@ -20,7 +20,7 @@ class DeleteButton extends Component {
             }}
                     variant="contained"
                     onClick={this.deleteCharacter}>
-                {this.props.string}
+                {this.props.name}
             </Button>
         )
     }
