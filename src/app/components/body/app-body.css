@@ -1,0 +1,14 @@
+.body {
+    margin-top: 15px;
+}
+
+.signSide {
+    width: 40%;
+    float: right;
+}
+
+.digitalSide {
+    width: 60%;
+    float: left;
+}
+
