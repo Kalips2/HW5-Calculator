@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container} from "@mui/material";
-import DigitalButton from "../digital-button/digital-button";
+import DigitalButton from "../buttons/digital-button";
 import './app-body.css'
 import SignButton from "../sign-button/sign-button";
 import DeleteButton from "../buttons/delete-button";

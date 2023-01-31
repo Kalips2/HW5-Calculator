@@ -1,8 +1,6 @@
 const initialState = {
-    isLoading: false,
     isError: false,
-    list: [],
-    name: "This is students!"
+    listOfExamples: []
 }
 
 export default (state = initialState, action) => {
@@ -10,26 +8,23 @@ export default (state = initialState, action) => {
         case 'REQUEST_STUDENTS': {
             return {
                 ...state,
-                isLoading: true,
                 isError: false,
             };
         }
         case 'RECEIVE_STUDENTS': {
             const {
-                students,
+                examples,
             } = action;
 
             return {
                 ...state,
-                isLoading: false,
                 isError: false,
-                list: students,
+                listOfExamples: examples,
             };
         }
         case 'ERROR_RECEIVE_STUDENTS': {
             return {
                 ...state,
-                isLoading: false,
                 isError: true,
             };
         }

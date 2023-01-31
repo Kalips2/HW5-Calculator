@@ -1,9 +1,20 @@
 import React, {Component} from "react";
-import './App.css';
-import Header from "./components/header/header";
-import Body from "./components/body/app-body";
-import Parser from "./parser/Parser";
+import '../styles/App.css';
+import Header from "../components/header/header";
+import Body from "../components/body/app-body";
+import Parser from "../parser/Parser";
 import {Button} from "@mui/material";
+import {applyMiddleware, bindActionCreators, createStore} from "redux";
+import examplesActions from "../actions/examples";
+import {connect, Provider} from "react-redux";
+import examplesReducer from '../reducers/examples'
+import thunkMiddleware from 'redux-thunk';
+
+//for create store (normal) need to install react-redux
+const store = createStore(
+    examplesReducer,
+    applyMiddleware(thunkMiddleware)
+);
 
 class App extends Component {
     constructor(props) {
@@ -13,7 +24,8 @@ class App extends Component {
             firstNumber: "",
             secondNumber: "",
             operator: "",
-            resultsOfCalculation: []
+            resultsOfCalculation: [],
+            examples: []
         }
         this.addDigitalToString = this.addDigitalToString.bind(this);
         this.addSignToString = this.addSignToString.bind(this);
@@ -90,20 +102,45 @@ class App extends Component {
     }
 
     render() {
-        const resultString = this.state.firstNumber + " " + this.state.operator + " " + this.state.secondNumber;
-        return (
-            <div className="todo-app">
-                <Header resultsOfCalculation={this.state.resultsOfCalculation}
-                        currentString={resultString}></Header>
-                <Body addDigitalToString={this.addDigitalToString}
-                      addSignToString={this.addSignToString}
-                      deleteCharacter={this.deleteCharacterInExpression}
-                      evaluateExpression={this.evaluateExpression}/>
-                <Button>Get and solve examples</Button>
+        const {
+            firstNumber,
+            secondNumber,
+            operator,
+            resultsOfCalculation,
+            examples,
+        } = this.state
 
-            </div>
+        const resultString = firstNumber + " " + operator + " " + secondNumber;
+        return (
+            <Provider store={store}>
+                <div className="todo-app">
+                    <Header resultsOfCalculation={this.state.resultsOfCalculation}
+                            currentString={resultString}></Header>
+                    <Body addDigitalToString={this.addDigitalToString}
+                          addSignToString={this.addSignToString}
+                          deleteCharacter={this.deleteCharacterInExpression}
+                          evaluateExpression={this.evaluateExpression}/>
+                    <Button>Get and solve examples</Button>
+
+                </div>
+            </Provider>
+
         );
     }
 }
 
-export default App;
+const mapReduxStateToProps = reduxState => ({
+    examples: reduxState.examples,
+})
+
+const mapDispatchToProps = (dispatch) => {
+    const {
+        fetchExamples,
+    } = bindActionCreators(examplesActions, dispatch);
+
+    return ({
+        actionFetchExamples: fetchExamples,
+    })
+}
+
+export default connect(mapReduxStateToProps, mapDispatchToProps)(App);
