@@ -7,14 +7,10 @@ import DeleteButton from "../buttons/delete-button";
 import EqualButton from "../buttons/equal-button";
 
 class Body extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <Container className="body">
-                <div  className="digitalSide">
+                <div className="digitalSide">
                     <DigitalButton number={1} addDigitalToString={this.props.addDigitalToString}></DigitalButton>
                     <DigitalButton number={2} addDigitalToString={this.props.addDigitalToString}></DigitalButton>
                     <DigitalButton number={3} addDigitalToString={this.props.addDigitalToString}></DigitalButton>

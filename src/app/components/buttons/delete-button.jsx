@@ -25,4 +25,5 @@ class DeleteButton extends Component {
         )
     }
 }
+
 export default DeleteButton;

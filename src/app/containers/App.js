@@ -1,8 +1,9 @@
-import {Component, createRef, useEffect} from "react";
-import './App.css'
+import React, {Component} from "react";
+import './App.css';
 import Header from "./components/header/header";
 import Body from "./components/body/app-body";
 import Parser from "./parser/Parser";
+import {Button} from "@mui/material";
 
 class App extends Component {
     constructor(props) {
@@ -98,8 +99,9 @@ class App extends Component {
                       addSignToString={this.addSignToString}
                       deleteCharacter={this.deleteCharacterInExpression}
                       evaluateExpression={this.evaluateExpression}/>
-            </div>
+                <Button>Get and solve examples</Button>
 
+            </div>
         );
     }
 }
